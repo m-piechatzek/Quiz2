@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Idea Factory</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+
+</head>
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <a href="<%= ideas_path %>">Ideas</a>
+    <% if user_signed_in? %>
+        Hello <%= current_user.f_name %>,
+        <%= link_to "Logout", sessions_path, method: :delete,
+                 data: {confirm: "are you sure you want to log out?"}%>
+
+    <a id= "new" href="<%= new_idea_path %>">New Idea</a>
+      <% else %>
+  <a href="<%= new_session_path %>">Login</a> |
+  <a href="<%= new_user_path %>">Sign Up</a>
+      <% end %>
+      <hr>
+
+
+<%= yield %>
+
+</body>
+</html>

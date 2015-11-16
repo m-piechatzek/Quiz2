@@ -1,0 +1,40 @@
+<h1>The Idea</h1>
+<div class="well">
+
+<%= @idea.title %>
+<br>
+<%= @idea.body %>
+
+</div>
+<!-- like or unlike POST -->
+
+<% if @like.present? && @like.persisted? && current_user.present?%>
+  <%= link_to "Un-Like", idea_like_path(@idea, @like), method: :delete %>
+<% else %>
+  <%= link_to "Like", idea_likes_path(@idea), method: :post %>
+<% end %>
+
+<% if @join.present? && @join.persisted? && current_user.present?%>
+  <%= link_to "Un-Join", idea_join_path(@idea, @join), method: :delete %>
+<% else %>
+  <%= link_to "Join", idea_joins_path(@idea), method: :post %>
+<% end %>
+<%= pluralize(@idea.likes.count, "Like") %> | <%= pluralize(@idea.joins.count, "Member") %>
+<h2>Add a comment</h2>
+
+<%= form_for [@idea, @comment] do |f| %>
+  <div>
+    <%= f.label :body %>
+    <%= f.text_area :body %>
+  </div>
+  <%= f.submit %>
+<% end %>
+
+
+<h2>Comments</h2>
+<% @idea.comments.each do |comment| %>
+  <p><%= comment.body %></p>
+  Comment made by:
+  <p><%= comment.user.f_name %></p>
+  <hr>
+  <% end %>

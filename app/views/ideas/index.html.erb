@@ -1,0 +1,16 @@
+<h1>Homebase</h1>
+
+<% @idea.each do |idea| %>
+  <div class="well">
+
+<%= link_to "#{idea.title}", idea_path(idea) %>
+<p>
+
+<%= idea.body %>
+</p>
+<p>
+Idea was made by:
+<%=idea.user.f_name %>
+
+
+<% end %>
